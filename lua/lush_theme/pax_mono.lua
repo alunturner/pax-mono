@@ -63,6 +63,12 @@ local theme = lush(function(injected_functions)
 	local background = hsl(240, 50, 10)
 	local foreground = hsl(50, 35, 75)
 
+	-- ramp in percent
+	local ramp_20 = "#353340"
+	local ramp_40 = "#5D5A5A"
+	local ramp_60 = "#858074"
+	local ramp_80 = "#ADA78E"
+
 	-- accent and variant
 	local hibiscus = hsl(330, 100, 50)
 	local fadedHibiscus = hsl(330, 35, 20)
@@ -149,7 +155,7 @@ local theme = lush(function(injected_functions)
 		TabLineFill({ Normal }), -- Tab pages line, where there are no labels
 		TabLineSel({ Normal }), -- Tab pages line, active tab page label
 		Title({ Normal }), -- Titles for output from ":set all", ":autocmd" etc.
-		Visual({ bg = fadedHibiscus }), -- Visual mode selection
+		Visual({ gui = "reverse" }), -- Visual mode selection
 		VisualNOS({ Visual }), -- Visual mode selection when vim is "Not Owning the Selection".
 		WarningMsg({ fg = orange }), -- Warning messages
 		Whitespace({ Normal }), -- "nbsp", "space", "tab" and "trail" in 'listchars'
