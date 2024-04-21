@@ -1,5 +1,14 @@
 import React from "react";
 
+const thing = null,
+  a = undefined,
+  b = NaN,
+  d = Infinity,
+  t = true,
+  f = false;
+
+console.log(thing, a, b, d, t, f);
+
 type Props = {
   id: string;
   name: boolean;
