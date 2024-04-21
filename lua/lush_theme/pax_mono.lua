@@ -60,13 +60,12 @@ local theme = lush(function(injected_functions)
 	-- aiming to never use full saturation/brightness cap at 10/90
 
 	-- base colours and variant
-	local background = hsl(240, 50, 12)
-	local foreground = hsl(50, 50, 80)
-	local brightenedBackground = hsl(240, 50, 18)
+	local background = hsl(240, 50, 10)
+	local foreground = hsl(50, 35, 75)
 
 	-- accent and variant
 	local hibiscus = hsl(330, 100, 50)
-	local fadedHibiscus = hsl(330, 40, 20)
+	local fadedHibiscus = hsl(330, 35, 20)
 
 	-- errors and warnings
 	local red = hsl(0, 70, 50)
@@ -89,7 +88,7 @@ local theme = lush(function(injected_functions)
 		-- See :h highlight-groups
 		--
 		Normal({ fg = foreground, bg = background }), -- Normal text
-		ColorColumn({ bg = brightenedBackground }), -- Columns set with 'colorcolumn'
+		ColorColumn({ bg = fadedHibiscus }), -- Columns set with 'colorcolumn'
 		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
 		Cursor({ Normal }), -- Character under the cursor
 		CurSearch({ Normal, gui = "reverse" }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
@@ -192,7 +191,7 @@ local theme = lush(function(injected_functions)
 		-- Keyword        { }, --   any other keyword
 		-- Exception      { }, --   try, catch, throw
 
-		PreProc({ fg = foreground }), -- (*) Generic Preprocessor
+		PreProc({ fg = foreground, gui = "bold" }), -- (*) Generic Preprocessor
 		-- Include        { }, --   Preprocessor #include
 		-- Define         { }, --   Preprocessor #define
 		-- Macro          { }, --   Same as Define
