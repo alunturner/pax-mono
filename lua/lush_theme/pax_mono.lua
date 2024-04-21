@@ -63,12 +63,12 @@ local theme = lush(function(injected_functions)
 	local background = hsl(240, 50, 10)
 	local foreground = hsl(50, 35, 75)
 
-	-- ramp from 30% to 70% mixture
-	local ramp_1 = background.mix(foreground, 30)
-	local ramp_2 = background.mix(foreground, 40)
-	local ramp_3 = background.mix(foreground, 50)
-	local ramp_4 = background.mix(foreground, 60)
-	local ramp_5 = background.mix(foreground, 70)
+	-- ramp from 50% to 90% mixture
+	local ramp_1 = background.mix(foreground, 50)
+	local ramp_2 = background.mix(foreground, 60)
+	local ramp_3 = background.mix(foreground, 70)
+	local ramp_4 = background.mix(foreground, 80)
+	local ramp_5 = background.mix(foreground, 90)
 
 	-- accent and variant
 	local hibiscus = hsl(330, 100, 50)
@@ -118,7 +118,7 @@ local theme = lush(function(injected_functions)
 		SignColumn({ Normal }), -- Column where |signs| are displayed
 		IncSearch({ Normal, gui = "reverse" }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 		Substitute({ CurSearch }), -- |:substitute| replacement text highlighting
-		LineNr({ SignColumn, fg = foreground }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+		LineNr({ SignColumn, fg = ramp_1 }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 		LineNrAbove(blank), -- Line number for when the 'relativenumber' option is set, above the cursor line
 		LineNrBelow(blank), -- Line number for when the 'relativenumber' option is set, below the cursor line
 		CursorLineNr({ CursorLine, fg = hibiscus }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
@@ -178,7 +178,7 @@ local theme = lush(function(injected_functions)
 		--
 		-- Uncomment and edit if you want more specific syntax highlighting.
 
-		Comment({ fg = foreground, gui = "italic" }), -- Any comment
+		Comment({ fg = ramp_2, gui = "italic" }), -- Any comment
 
 		Constant({ fg = foreground }), -- (*) Any constant
 		-- String { }, --   A string constant: "this is a string"
@@ -190,7 +190,7 @@ local theme = lush(function(injected_functions)
 		Identifier({ fg = foreground }), -- (*) Any variable name
 		Function({ fg = foreground }), --   Function name (also: methods for classes)
 
-		Statement({ fg = foreground, gui = "bold" }), -- (*) Any statement
+		Statement({ fg = ramp_4, gui = "bold" }), -- (*) Any statement
 		-- Conditional    { }, --   if, then, else, endif, switch, etc.
 		-- Repeat         { }, --   for, do, while, etc.
 		-- Label          { }, --   case, default, etc.
@@ -198,13 +198,13 @@ local theme = lush(function(injected_functions)
 		-- Keyword        { }, --   any other keyword
 		-- Exception      { }, --   try, catch, throw
 
-		PreProc({ fg = foreground, gui = "bold" }), -- (*) Generic Preprocessor
+		PreProc({ Statement }), -- (*) Generic Preprocessor
 		-- Include        { }, --   Preprocessor #include
 		-- Define         { }, --   Preprocessor #define
 		-- Macro          { }, --   Same as Define
 		-- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-		Type({ fg = foreground }), -- (*) int, long, char, etc.
+		Type({ fg = ramp_4 }), -- (*) int, long, char, etc.
 		-- StorageClass   { }, --   static, register, volatile, etc.
 		-- Structure      { }, --   struct, union, enum, etc.
 		-- Typedef        { }, --   A typedef
@@ -212,7 +212,7 @@ local theme = lush(function(injected_functions)
 		Special({ Normal }), -- (*) Any special symbol
 		-- SpecialChar    { }, --   Special character in a constant
 		-- Tag            { }, --   You can use CTRL-] on this
-		Delimiter({ fg = foreground }), --   Character that needs attention
+		Delimiter({ fg = ramp_3, gui = "bold" }), --   Character that needs attention
 		-- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
 		-- Debug          { }, --   Debugging statements
 
