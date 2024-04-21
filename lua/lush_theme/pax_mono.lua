@@ -240,8 +240,8 @@ local theme = lush(function(injected_functions)
 		-- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
 		-- DiagnosticVirtualTextHint  { } , -- Used for "Hint" diagnostic virtual text.
 		-- DiagnosticVirtualTextOk    { } , -- Used for "Ok" diagnostic virtual text.
-		-- DiagnosticUnderlineError(), -- Used to underline "Error" diagnostics.
-		-- DiagnosticUnderlineWarn(), -- Used to underline "Warn" diagnostics.
+		DiagnosticUnderlineError({ DiagnosticError }), -- Used to underline "Error" diagnostics.
+		DiagnosticUnderlineWarn({ DiagnosticWarn }), -- Used to underline "Warn" diagnostics.
 		-- DiagnosticUnderlineInfo(), -- Used to underline "Info" diagnostics.
 		-- DiagnosticUnderlineHint(), -- Used to underline "Hint" diagnostics.
 		-- DiagnosticUnderlineOk(), -- Used to underline "Ok" diagnostics.
