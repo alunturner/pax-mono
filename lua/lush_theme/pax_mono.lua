@@ -63,11 +63,12 @@ local theme = lush(function(injected_functions)
 	local background = hsl(240, 50, 10)
 	local foreground = hsl(50, 35, 75)
 
-	-- ramp in percent
-	local ramp_20 = "#353340"
-	local ramp_40 = "#5D5A5A"
-	local ramp_60 = "#858074"
-	local ramp_80 = "#ADA78E"
+	-- ramp from 30% to 70% mixture
+	local ramp_1 = background.mix(foreground, 30)
+	local ramp_2 = background.mix(foreground, 40)
+	local ramp_3 = background.mix(foreground, 50)
+	local ramp_4 = background.mix(foreground, 60)
+	local ramp_5 = background.mix(foreground, 70)
 
 	-- accent and variant
 	local hibiscus = hsl(330, 100, 50)
@@ -189,7 +190,7 @@ local theme = lush(function(injected_functions)
 		Identifier({ fg = foreground }), -- (*) Any variable name
 		Function({ fg = foreground }), --   Function name (also: methods for classes)
 
-		Statement({ fg = foreground }), -- (*) Any statement
+		Statement({ fg = foreground, gui = "bold" }), -- (*) Any statement
 		-- Conditional    { }, --   if, then, else, endif, switch, etc.
 		-- Repeat         { }, --   for, do, while, etc.
 		-- Label          { }, --   case, default, etc.
@@ -330,6 +331,7 @@ local theme = lush(function(injected_functions)
 		sym("@boolean.javascript")({ Type }), -- true/false
 		sym("@constant.builtin.javascript")({ Type }), -- null/undefined
 		sym("@constructor.javascript")({ Function }), -- treat constructor as a method
+		sym("@function.builtin.javascript")({ Statement }), -- hit require
 		sym("@tag.builtin.javascript")({ Type }), -- div/a/span etc.
 		sym("@tag.javascript")({ Type }), -- custom components
 		sym("@none.javascript")({ Constant }), -- text inside tags
