@@ -1,6 +1,6 @@
 -- You probably always want to set this in your vim file
 vim.opt.background = "dark"
-vim.g.colors_name = "pax"
+vim.g.colors_name = "pax-mono"
 
 -- By setting our module to nil, we clear lua's cache,
 -- which means the require ahead will *always* occur.
@@ -14,7 +14,7 @@ vim.g.colors_name = "pax"
 --
 -- The performance impact of this call can be measured in the hundreds of
 -- *nanoseconds* and such could be considered "production safe".
-package.loaded["lush_theme.pax"] = nil
+package.loaded["lush_theme.pax-mono"] = nil
 
 -- include our theme file and pass it to lush to apply
-require("lush")(require("lush_theme.pax"))
+require("lush")(require("lush_theme.pax-mono"))
