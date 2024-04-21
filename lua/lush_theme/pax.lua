@@ -342,12 +342,15 @@ local theme = lush(function(injected_functions)
 		sym("@constant.builtin.tsx")({ Type }), -- null/undefined
 		sym("@constant.builtin.tsx")({ Constant }), -- null/undefined
 		sym("@constructor.tsx")({ Function }), -- treat constructor as a method
+		sym("@tag.attribute.tsx")({ Delimiter }),
+		sym("@tag.delimiter.tsx")({ Delimiter }),
 		sym("@tag.builtin.tsx")({ Type }), -- div/a/span etc.
 		sym("@tag.tsx")({ Type }), -- custom components
 		sym("@none.tsx")({ Constant }), -- text inside tags
 
 		-- Lua
 		sym("@boolean.lua")({ Type }), -- true/false
+		sym("@constructor.lua")({ Delimiter }), -- the export from a module
 	}
 end)
 
