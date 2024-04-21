@@ -76,6 +76,9 @@ local theme = lush(function(injected_functions)
 	-- accent
 	local hotPink = hsl(331, 100, 50)
 
+	-- other
+	local tmux = hsl(300, 60, 20)
+
 	-- roles
 	local error = red
 	local warn = orange
@@ -167,6 +170,11 @@ local theme = lush(function(injected_functions)
 		WildMenu({ PmenuSel }), -- Current match in 'wildmenu' completion
 		WinBar({ SignColumn, fg = hotPink }), -- Window bar of current window
 		WinBarNC({ LineNr }), -- Window bar of not-current windows
+		-- CUSTOM RULER
+		CustomRulerSeparator({ fg = tmux, bg = grey }),
+		CustomRulerIcon({ fg = bright, bg = tmux }),
+		CustomRulerFile({ fg = bright, bg = grey }),
+		CustomRulerError({ fg = red, bg = grey }),
 
 		-- Common vim syntax groups used for all kinds of code and markup.
 		-- Commented-out groups should chain up to their preferred (*) group
