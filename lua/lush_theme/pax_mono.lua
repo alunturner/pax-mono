@@ -59,18 +59,19 @@ local theme = lush(function(injected_functions)
 	-- between dark and light (and future addition of colour)
 	-- aiming to never use full saturation/brightness cap at 10/90
 
-	-- base colours
+	-- base colours and variant
 	local background = hsl(240, 50, 12)
 	local foreground = hsl(50, 50, 80)
-	local placeholder = hsl(180, 50, 50)
+	local brightenedBackground = hsl(240, 50, 18)
+
+	-- accent and variant
 	local hibiscus = hsl(330, 100, 50)
-	local fadedHibiscus = hsl(330, 50, 25)
-	local brightenedBackground = hsl(240, 50, 36)
+	local fadedHibiscus = hsl(330, 40, 20)
 
 	-- errors and warnings
-	local red = hsl(0, 50, 50)
-	local orange = hsl(34, 50, 50)
-	local green = hsl(120, 50, 50)
+	local red = hsl(0, 70, 50)
+	local orange = hsl(34, 70, 50)
+	local green = hsl(120, 70, 50)
 
 	-- utils
 	local blank = { fg = foreground }
@@ -88,7 +89,7 @@ local theme = lush(function(injected_functions)
 		-- See :h highlight-groups
 		--
 		Normal({ fg = foreground, bg = background }), -- Normal text
-		ColorColumn({ bg = placeholder }), -- Columns set with 'colorcolumn'
+		ColorColumn({ bg = brightenedBackground }), -- Columns set with 'colorcolumn'
 		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
 		Cursor({ Normal }), -- Character under the cursor
 		CurSearch({ Normal, gui = "reverse" }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
@@ -123,7 +124,7 @@ local theme = lush(function(injected_functions)
 		MsgSeparator({ Normal }), -- Separator for scrolled messages, `msgsep` flag of 'display'
 		MoreMsg({ Normal }), -- |more-prompt|
 		NonText({ Normal }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-		NormalFloat({ fg = foreground, bg = brightenedBackground }), -- Normal text in floating windows.
+		NormalFloat({ Normal }), -- Normal text in floating windows.
 		FloatBorder({ Normal }), -- Border of floating windows.
 		FloatTitle({ Normal }), -- Title of floating windows.
 		NormalNC({ Normal }), -- normal text in non-current windows
@@ -233,7 +234,7 @@ local theme = lush(function(injected_functions)
 		DiagnosticWarn({ fg = orange }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticInfo({ Comment }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticHint({ Comment }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticOk({ fg = placeholder }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticOk({ Comment }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		-- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
 		-- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
 		-- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
