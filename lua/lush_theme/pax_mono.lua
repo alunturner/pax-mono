@@ -60,10 +60,12 @@ local theme = lush(function(injected_functions)
 	-- aiming to never use full saturation/brightness cap at 10/90
 
 	-- base colours
-	local background = hsl(240, 20, 12)
-	local foreground = hsl(50, 10, 80)
+	local background = hsl(240, 50, 12)
+	local foreground = hsl(50, 50, 80)
 	local placeholder = hsl(180, 50, 50)
 	local hibiscus = hsl(330, 100, 50)
+	local fadedHibiscus = hsl(330, 50, 25)
+	local brightenedBackground = hsl(240, 50, 36)
 
 	-- errors and warnings
 	local red = hsl(0, 50, 50)
@@ -88,19 +90,19 @@ local theme = lush(function(injected_functions)
 		Normal({ fg = foreground, bg = background }), -- Normal text
 		ColorColumn({ bg = placeholder }), -- Columns set with 'colorcolumn'
 		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
-		Cursor({ fg = foreground, bg = placeholder }), -- Character under the cursor
-		CurSearch({ bg = placeholder, fg = placeholder }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
+		Cursor({ Normal }), -- Character under the cursor
+		CurSearch({ Normal, gui = "reverse" }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		lCursor({ Cursor }), -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		CursorIM({ Cursor }), -- Like Cursor, but used when in IME mode |CursorIM|
-		CursorLine({ bg = placeholder }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+		CursorLine({ bg = fadedHibiscus }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 		CursorColumn({ CursorLine }), -- Screen-column at the cursor, when 'cursorcolumn' is set.
-		Directory({ fg = placeholder }), -- Directory names (and other special names in listings)
+		Directory({ fg = foreground }), -- Directory names (and other special names in listings)
 		DiffAdd(blank), -- Diff mode: Added line |diff.txt|
 		DiffChange(blank), -- Diff mode: Changed line |diff.txt|
 		DiffDelete(blank), -- Diff mode: Deleted line |diff.txt|
 		DiffText(blank), -- Diff mode: Changed text within a changed line |diff.txt|
 		EndOfBuffer(hidden), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
-		TermCursor({ bg = placeholder }), -- Cursor in a focused terminal
+		TermCursor({ bg = hibiscus }), -- Cursor in a focused terminal
 		TermCursorNC({ Normal, gui = "reverse" }), -- Cursor in an unfocused terminal
 		ErrorMsg({ fg = red }), -- Error messages on the command line
 		VertSplit({ Normal }), -- Column separating vertically split windows
@@ -109,19 +111,19 @@ local theme = lush(function(injected_functions)
 		SignColumn({ Normal }), -- Column where |signs| are displayed
 		IncSearch({ Normal, gui = "reverse" }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 		Substitute({ CurSearch }), -- |:substitute| replacement text highlighting
-		LineNr({ SignColumn, fg = placeholder }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+		LineNr({ SignColumn, fg = foreground }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 		LineNrAbove(blank), -- Line number for when the 'relativenumber' option is set, above the cursor line
 		LineNrBelow(blank), -- Line number for when the 'relativenumber' option is set, below the cursor line
 		CursorLineNr({ CursorLine, fg = hibiscus }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 		CursorLineFold({ CursorLineNr }), -- Like FoldColumn when 'cursorline' is set for the cursor line
 		CursorLineSign({ CursorLineNr }), -- Like SignColumn when 'cursorline' is set for the cursor line
-		MatchParen({ fg = hibiscus }), -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+		MatchParen({ gui = "reverse" }), -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
 		ModeMsg({ Normal }), -- 'showmode' message (e.g., "-- INSERT -- ")
 		MsgArea({ Normal }), -- Area for messages and cmdline
 		MsgSeparator({ Normal }), -- Separator for scrolled messages, `msgsep` flag of 'display'
 		MoreMsg({ Normal }), -- |more-prompt|
 		NonText({ Normal }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-		NormalFloat({ fg = foreground, bg = placeholder }), -- Normal text in floating windows.
+		NormalFloat({ fg = foreground, bg = brightenedBackground }), -- Normal text in floating windows.
 		FloatBorder({ Normal }), -- Border of floating windows.
 		FloatTitle({ Normal }), -- Title of floating windows.
 		NormalNC({ Normal }), -- normal text in non-current windows
@@ -131,8 +133,8 @@ local theme = lush(function(injected_functions)
 		PmenuKindSel({ PmenuSel }), -- Popup menu: Selected item "kind"
 		PmenuExtra({ Pmenu }), -- Popup menu: Normal item "extra text"
 		PmenuExtraSel({ PmenuSel }), -- Popup menu: Selected item "extra text"
-		PmenuSbar({ bg = placeholder }), -- Popup menu: Scrollbar.
-		PmenuThumb({ bg = placeholder }), -- Popup menu: Thumb of the scrollbar.
+		PmenuSbar({ bg = foreground }), -- Popup menu: Scrollbar.
+		PmenuThumb({ bg = hibiscus }), -- Popup menu: Thumb of the scrollbar.
 		Question({ Normal }), -- |hit-enter| prompt and yes/no questions
 		QuickFixLine({ PmenuSel }), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
 		Search({ IncSearch }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
@@ -147,7 +149,7 @@ local theme = lush(function(injected_functions)
 		TabLineFill({ Normal }), -- Tab pages line, where there are no labels
 		TabLineSel({ Normal }), -- Tab pages line, active tab page label
 		Title({ Normal }), -- Titles for output from ":set all", ":autocmd" etc.
-		Visual({ bg = placeholder, fg = hibiscus }), -- Visual mode selection
+		Visual({ bg = fadedHibiscus }), -- Visual mode selection
 		VisualNOS({ Visual }), -- Visual mode selection when vim is "Not Owning the Selection".
 		WarningMsg({ fg = orange }), -- Warning messages
 		Whitespace({ Normal }), -- "nbsp", "space", "tab" and "trail" in 'listchars'
@@ -156,10 +158,10 @@ local theme = lush(function(injected_functions)
 		WinBar({ SignColumn, fg = hibiscus }), -- Window bar of current window
 		WinBarNC({ LineNr }), -- Window bar of not-current windows
 		-- CUSTOM RULER
-		CustomRulerSeparator({ fg = placeholder, bg = placeholder }),
-		CustomRulerIcon({ fg = foreground, bg = placeholder }),
-		CustomRulerFile({ fg = foreground, bg = placeholder }),
-		CustomRulerError({ fg = red, bg = placeholder }),
+		CustomRulerSeparator({ fg = fadedHibiscus, bg = background }),
+		CustomRulerIcon({ fg = foreground, bg = fadedHibiscus }),
+		CustomRulerFile({ fg = foreground, bg = background }),
+		CustomRulerError({ fg = red, bg = background }),
 
 		-- Common vim syntax groups used for all kinds of code and markup.
 		-- Commented-out groups should chain up to their preferred (*) group
@@ -169,7 +171,7 @@ local theme = lush(function(injected_functions)
 		--
 		-- Uncomment and edit if you want more specific syntax highlighting.
 
-		Comment({ fg = foreground }), -- Any comment
+		Comment({ fg = foreground, gui = "italic" }), -- Any comment
 
 		Constant({ fg = foreground }), -- (*) Any constant
 		-- String { }, --   A string constant: "this is a string"
