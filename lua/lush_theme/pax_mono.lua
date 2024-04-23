@@ -66,8 +66,7 @@ local theme = lush(function(injected_functions)
 	-- errors and warnings
 	local red = hsl(0, 70, 60)
 	local orange = hsl(34, 70, 60)
-	local green = hsl(120, 70, 60)
-	local tmux = hsl(300, 60, 20)
+	local green = hsl(120, 70, 60) -- #52E052, unused here but useful in lazygit
 
 	-- utils
 	local hidden = { fg = dark, bg = dark }
@@ -344,7 +343,7 @@ local theme = lush(function(injected_functions)
 		sym("@none.tsx")({ Constant }), -- text inside tags
 
 		-- Lua
-		sym("@boolean.lua")({ Type }), -- true/false
+		sym("@boolean.lua")({ Type, gui = "bold" }), -- true/false
 		sym("@constructor.lua")({ Delimiter }), -- the export from a module
 	}
 end)
