@@ -59,7 +59,6 @@ local theme = lush(function(injected_functions)
 	local dark_plus = dark.mix(bright, 10)
 	local dark_plus_plus = dark.mix(bright, 20)
 	local mid = dark.mix(bright, 60)
-	local mid_plus = dark.mix(bright, 70)
 	local bright_minus_minus = dark.mix(bright, 80)
 	local bright_minus = dark.mix(bright, 90)
 
