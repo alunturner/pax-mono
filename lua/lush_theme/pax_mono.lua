@@ -318,27 +318,29 @@ local theme = lush(function(injected_functions)
 		-- Treesitter Language specific - nb although these look the same,
 		-- combining them causes funny highlighting in TSX delimiters.
 		-- JSX
-		sym("@boolean.javascript")({ Type }), -- true/false
-		sym("@constant.builtin.javascript")({ Type }), -- null/undefined
+		sym("@boolean.javascript")({ Type, gui = "bold" }), -- true/false
+		sym("@constant.builtin.javascript")({ Type, gui = "bold" }), -- null/undefined
 		sym("@constructor.javascript")({ Function }), -- treat constructor as a method
-		sym("@function.builtin.javascript")({ Statement }), -- hit require
-		sym("@tag.builtin.javascript")({ Type }), -- div/a/span etc.
-		sym("@tag.javascript")({ Type }), -- custom components
+		sym("@function.builtin.javascript")({ Statement }), -- require
+		sym("@tag.attribute.javascript")({ Type, gui = "italic" }), -- all tag attributes
+		sym("@tag.builtin.javascript")({ Type, gui = "italic" }), -- div/a/span etc.
+		sym("@tag.delimiter.javascript")({ Delimiter, gui = "bold" }),
+		sym("@tag.javascript")({ Type, gui = "italic" }), -- custom components
 		sym("@none.javascript")({ Constant }), -- text inside tags
 
 		-- TS
-		sym("@boolean.typescript")({ Type }), -- true/false
-		sym("@constant.builtin.typescript")({ Type }), -- null/undefined
+		sym("@constructor.typescript")({ Function }), -- treat constructor as a method
+		sym("@boolean.typescript")({ Type, gui = "bold" }), -- true/false
+		sym("@constant.builtin.typescript")({ Type, gui = "bold" }), -- null/undefined
 
 		-- TSX
-		sym("@boolean.tsx")({ Type }), -- true/false
-		sym("@constant.builtin.tsx")({ Type }), -- null/undefined
-		sym("@constant.builtin.tsx")({ Constant }), -- null/undefined
+		sym("@boolean.tsx")({ Type, gui = "bold" }), -- true/false
+		sym("@constant.builtin.tsx")({ Type, gui = "bold" }), -- null/undefined
 		sym("@constructor.tsx")({ Function }), -- treat constructor as a method
-		sym("@tag.attribute.tsx")({ Delimiter }),
-		sym("@tag.delimiter.tsx")({ Delimiter }),
-		sym("@tag.builtin.tsx")({ Type }), -- div/a/span etc.
-		sym("@tag.tsx")({ Type }), -- custom components
+		sym("@tag.attribute.tsx")({ Type, gui = "italic" }),
+		sym("@tag.builtin.tsx")({ Type, gui = "italic" }), -- div/a/span etc.
+		sym("@tag.delimiter.tsx")({ Delimiter, gui = "bold" }),
+		sym("@tag.tsx")({ Type, gui = "italic" }), -- custom components
 		sym("@none.tsx")({ Constant }), -- text inside tags
 
 		-- Lua
