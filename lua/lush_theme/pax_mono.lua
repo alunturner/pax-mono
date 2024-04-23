@@ -51,26 +51,16 @@ local hsl = lush.hsl
 local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 
-	-- MONO THEME IDEAS
-	-- terminal needs to be able to support bold and italics
-	-- navy bg with cream fg
-	-- will be dark and light themed (dark first)
-	-- look for a solid set of transformation rules to allow easy conversion
-	-- between dark and light (and future addition of colour)
-	-- saturation/brightness cap at 10/90
-
 	-- base colours and variant
-	local background = hsl(240, 0, 10)
-	local foreground = hsl(50, 0, 90)
+	local bg = hsl(240, 0, 10)
+	local fg = hsl(50, 0, 90)
 
-	-- ramp from 20% to 80% mixture
-	local ramp_1 = background.mix(foreground, 12.5)
-	local ramp_2 = background.mix(foreground, 25)
-	local ramp_3 = background.mix(foreground, 37.5)
-	local ramp_4 = background.mix(foreground, 50)
-	local ramp_5 = background.mix(foreground, 62.5)
-	local ramp_6 = background.mix(foreground, 75)
-	local ramp_7 = background.mix(foreground, 87.5)
+	-- ramps from bg to fg
+	local ramp_1 = bg.mix(fg, 10)
+	local ramp_4 = bg.mix(fg, 60) -- 2 use, Comments, LineNr
+	local ramp_5 = bg.mix(fg, 70) -- 1 use, Statements
+	local ramp_6 = bg.mix(fg, 80) -- 2 uses, Type and Delimiter
+	local ramp_7 = bg.mix(fg, 90) -- 2 uses, PMenu only
 
 	-- errors and warnings
 	local red = hsl(0, 70, 60)
@@ -79,8 +69,8 @@ local theme = lush(function(injected_functions)
 	local tmux = hsl(300, 60, 20)
 
 	-- utils
-	local blank = { fg = foreground }
-	local hidden = { fg = background, bg = background }
+	local blank = { fg = fg }
+	local hidden = { fg = bg, bg = bg }
 
 	return {
 		-- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
@@ -93,16 +83,16 @@ local theme = lush(function(injected_functions)
 		--
 		-- See :h highlight-groups
 		--
-		Normal({ fg = foreground, bg = background }), -- Normal text
+		Normal({ fg = fg, bg = bg }), -- Normal text
 		ColorColumn({ bg = ramp_1 }), -- Columns set with 'colorcolumn'
-		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
+		Conceal(hidden), -- Placeholder characterssubstituted for concealed text (see 'conceallevel')
 		Cursor({ Normal }), -- Character under the cursor
 		CurSearch({ Normal, gui = "reverse" }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		lCursor({ Cursor }), -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		CursorIM({ Cursor }), -- Like Cursor, but used when in IME mode |CursorIM|
 		CursorLine({ bg = ramp_1 }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 		CursorColumn({ CursorLine }), -- Screen-column at the cursor, when 'cursorcolumn' is set.
-		Directory({ fg = foreground }), -- Directory names (and other special names in listings)
+		Directory({ fg = fg }), -- Directory names (and other special names in listings)
 		DiffAdd(blank), -- Diff mode: Added line |diff.txt|
 		DiffChange(blank), -- Diff mode: Changed line |diff.txt|
 		DiffDelete(blank), -- Diff mode: Deleted line |diff.txt|
@@ -117,10 +107,10 @@ local theme = lush(function(injected_functions)
 		SignColumn({ Normal }), -- Column where |signs| are displayed
 		IncSearch({ Normal, gui = "reverse" }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 		Substitute({ CurSearch }), -- |:substitute| replacement text highlighting
-		LineNr({ SignColumn, fg = ramp_6 }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+		LineNr({ SignColumn, fg = ramp_4 }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 		LineNrAbove(blank), -- Line number for when the 'relativenumber' option is set, above the cursor line
 		LineNrBelow(blank), -- Line number for when the 'relativenumber' option is set, below the cursor line
-		CursorLineNr({ CursorLine, fg = foreground }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+		CursorLineNr({ CursorLine, fg = fg }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 		CursorLineFold({ CursorLineNr }), -- Like FoldColumn when 'cursorline' is set for the cursor line
 		CursorLineSign({ CursorLineNr }), -- Like SignColumn when 'cursorline' is set for the cursor line
 		MatchParen({ Normal, gui = "reverse" }), -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
@@ -130,7 +120,7 @@ local theme = lush(function(injected_functions)
 		MoreMsg({ ModeMsg }), -- |more-prompt|
 		NonText({ Normal }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
 		NormalFloat({ Normal }), -- Normal text in floating windows.
-		FloatBorder({ fg = ramp_4 }), -- Border of floating windows.
+		FloatBorder({ fg = fg }), -- Border of floating windows.
 		FloatTitle({ Normal }), -- Title of floating windows.
 		NormalNC({ Normal }), -- normal text in non-current windows
 		Pmenu({ fg = ramp_7, bg = ramp_1 }), -- Popup menu: Normal item.
@@ -139,8 +129,8 @@ local theme = lush(function(injected_functions)
 		PmenuKindSel({ PmenuSel }), -- Popup menu: Selected item "kind"
 		PmenuExtra({ Pmenu }), -- Popup menu: Normal item "extra text"
 		PmenuExtraSel({ PmenuSel }), -- Popup menu: Selected item "extra text"
-		PmenuSbar({ bg = ramp_2 }), -- Popup menu: Scrollbar.
-		PmenuThumb({ bg = ramp_1 }), -- Popup menu: Thumb of the scrollbar.
+		PmenuSbar({ bg = ramp_1 }), -- Popup menu: Scrollbar.
+		PmenuThumb({ bg = ramp_7 }), -- Popup menu: Thumb of the scrollbar.
 		Question({ ModeMsg }), -- |hit-enter| prompt and yes/no questions
 		QuickFixLine({ PmenuSel }), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
 		Search({ IncSearch }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
@@ -165,7 +155,7 @@ local theme = lush(function(injected_functions)
 		WinBarNC({ LineNr }), -- Window bar of not-current windows
 		-- CUSTOM RULER
 		CustomRulerSeparator({ ModeMsg, fg = tmux }),
-		CustomRulerIcon({ fg = foreground, bg = tmux }),
+		CustomRulerIcon({ fg = fg, bg = tmux }),
 		CustomRulerFile({ ModeMsg }),
 		CustomRulerError({ ModeMsg, fg = red }),
 
@@ -179,14 +169,14 @@ local theme = lush(function(injected_functions)
 
 		Comment({ fg = ramp_4, gui = "italic" }), -- Any comment
 
-		Constant({ fg = foreground }), -- (*) Any constant
+		Constant({ fg = fg }), -- (*) Any constant
 		-- String { }, --   A string constant: "this is a string"
 		-- Character { }, --   A character constant: 'c', '\n'
 		-- Number { }, --   A number constant: 234, 0xff
 		-- Boolean        { }, --   A boolean constant: TRUE, false
 		-- Float { }, --   A floating point constant: 2.3e10
 
-		Identifier({ fg = foreground }), -- (*) Any variable name
+		Identifier({ fg = fg }), -- (*) Any variable name
 		Function({ Identifier }), --   Function name (also: methods for classes)
 
 		Statement({ fg = ramp_5, gui = "bold" }), -- (*) Any statement
