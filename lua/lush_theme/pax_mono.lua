@@ -167,19 +167,19 @@ local theme = lush(function(injected_functions)
 		--
 		-- Uncomment and edit if you want more specific syntax highlighting.
 
-		Comment({ Normal }), -- Any comment
+		Comment({ fg = mid, gui = "italic" }), -- Any comment
 
-		Constant({ Normal }), -- (*) Any constant
+		Constant({ fg = bright }), -- (*) Any constant
 		-- String { }, --   A string constant: "this is a string"
 		-- Character { }, --   A character constant: 'c', '\n'
 		-- Number { }, --   A number constant: 234, 0xff
 		-- Boolean        { }, --   A boolean constant: TRUE, false
 		-- Float { }, --   A floating point constant: 2.3e10
 
-		Identifier({ Normal }), -- (*) Any variable name
-		Function({ Identifier }), --   Function name (also: methods for classes)
+		Identifier({ fg = bright }), -- (*) Any variable name
+		Function({ fg = bright_minus_minus }), --   Function name (also: methods for classes)
 
-		Statement({ Normal }), -- (*) Any statement
+		Statement({ fg = bright, gui = "bold" }), -- (*) Any statement
 		-- Conditional    { }, --   if, then, else, endif, switch, etc.
 		-- Repeat         { }, --   for, do, while, etc.
 		-- Label          { }, --   case, default, etc.
@@ -187,25 +187,25 @@ local theme = lush(function(injected_functions)
 		-- Keyword        { }, --   any other keyword
 		-- Exception      { }, --   try, catch, throw
 
-		PreProc({ Statement }), -- (*) Generic Preprocessor
+		PreProc({ fg = bright, gui = "bold" }), -- (*) Generic Preprocessor
 		-- Include        { }, --   Preprocessor #include
 		-- Define         { }, --   Preprocessor #define
 		-- Macro          { }, --   Same as Define
 		-- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-		Type({ Normal }), -- (*) int, long, char, etc.
+		Type({ fg = bright_minus }), -- (*) int, long, char, etc.
 		-- StorageClass   { }, --   static, register, volatile, etc.
 		-- Structure      { }, --   struct, union, enum, etc.
 		-- Typedef        { }, --   A typedef
 
-		Special({ Normal }), -- (*) Any special symbol
+		Special({ fg = bright }), -- (*) Any special symbol
 		-- SpecialChar    { }, --   Special character in a constant
 		-- Tag            { }, --   You can use CTRL-] on this
-		Delimiter({ Normal }), --   Character that needs attention
+		Delimiter({ fg = bright }), --   Character that needs attention
 		-- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
 		-- Debug          { }, --   Debugging statements
 
-		Underlined({ Normal }), -- Text that stands out, HTML links
+		Underlined({ gui = "underline" }), -- Text that stands out, HTML links
 		Ignore({ Normal }), -- Left blank, hidden |hl-Ignore| (NOTE: May be invisible here in template)
 		Error({ Normal }), -- Any erroneous construct
 		Todo({ Normal }), -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
@@ -221,7 +221,7 @@ local theme = lush(function(injected_functions)
 		LspReferenceWrite({ Normal }), -- Used for highlighting "write" references
 		LspCodeLens({ Normal }), -- Used to color the virtual text of the codelens. See |nvim_buf_set_extmark()|.
 		LspCodeLensSeparator({ Normal }), -- Used to color the seperator between two or more code lens.
-		LspSignatureActiveParameter({ PmenuSel }), -- Used to highlight the active parameter in the signature help. See |vim.lsp.handlers.signature_help()|.
+		LspSignatureActiveParameter({ Normal }), -- Used to highlight the active parameter in the signature help. See |vim.lsp.handlers.signature_help()|.
 
 		-- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
 		--
@@ -245,11 +245,12 @@ local theme = lush(function(injected_functions)
 		-- DiagnosticFloatingInfo     { } , -- Used to color "Info" diagnostic messages in diagnostics float.
 		-- DiagnosticFloatingHint     { } , -- Used to color "Hint" diagnostic messages in diagnostics float.
 		-- DiagnosticFloatingOk       { } , -- Used to color "Ok" diagnostic messages in diagnostics float.
-		DiagnosticSignError({ fg = green, bg = "unset" }), -- Used for "Error" signs in sign column.
+		-- DiagnosticSignError({}), -- Used for "Error" signs in sign column.
 		-- DiagnosticSignWarn(), -- Used for "Warn" signs in sign column.
 		-- DiagnosticSignInfo(), -- Used for "Info" signs in sign column.
 		-- DiagnosticSignHint(), -- Used for "Hint" signs in sign column.
 		-- DiagnosticSignOk(), -- Used for "Ok" signs in sign column.
+		DiagnosticUnnecessary({ gui = "underline,italic" }), -- unused variables
 
 		-- Tree-Sitter syntax groups.
 		--
