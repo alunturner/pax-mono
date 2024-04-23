@@ -167,19 +167,19 @@ local theme = lush(function(injected_functions)
 		--
 		-- Uncomment and edit if you want more specific syntax highlighting.
 
-		Comment({ fg = mid, gui = "italic" }), -- Any comment
+		Comment({ Normal }), -- Any comment
 
-		Constant({ fg = bright }), -- (*) Any constant
+		Constant({ Normal }), -- (*) Any constant
 		-- String { }, --   A string constant: "this is a string"
 		-- Character { }, --   A character constant: 'c', '\n'
 		-- Number { }, --   A number constant: 234, 0xff
 		-- Boolean        { }, --   A boolean constant: TRUE, false
 		-- Float { }, --   A floating point constant: 2.3e10
 
-		Identifier({ fg = bright }), -- (*) Any variable name
+		Identifier({ Normal }), -- (*) Any variable name
 		Function({ Identifier }), --   Function name (also: methods for classes)
 
-		Statement({ fg = mid_plus, gui = "bold" }), -- (*) Any statement
+		Statement({ Normal }), -- (*) Any statement
 		-- Conditional    { }, --   if, then, else, endif, switch, etc.
 		-- Repeat         { }, --   for, do, while, etc.
 		-- Label          { }, --   case, default, etc.
@@ -193,7 +193,7 @@ local theme = lush(function(injected_functions)
 		-- Macro          { }, --   Same as Define
 		-- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-		Type({ fg = bright_minus_minus }), -- (*) int, long, char, etc.
+		Type({ Normal }), -- (*) int, long, char, etc.
 		-- StorageClass   { }, --   static, register, volatile, etc.
 		-- Structure      { }, --   struct, union, enum, etc.
 		-- Typedef        { }, --   A typedef
@@ -201,11 +201,11 @@ local theme = lush(function(injected_functions)
 		Special({ Normal }), -- (*) Any special symbol
 		-- SpecialChar    { }, --   Special character in a constant
 		-- Tag            { }, --   You can use CTRL-] on this
-		Delimiter({ fg = bright_minus_minus, gui = "bold" }), --   Character that needs attention
+		Delimiter({ Normal }), --   Character that needs attention
 		-- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
 		-- Debug          { }, --   Debugging statements
 
-		Underlined({ gui = "underline" }), -- Text that stands out, HTML links
+		Underlined({ Normal }), -- Text that stands out, HTML links
 		Ignore({ Normal }), -- Left blank, hidden |hl-Ignore| (NOTE: May be invisible here in template)
 		Error({ Normal }), -- Any erroneous construct
 		Todo({ Normal }), -- Anything that needs extra attention; mostly the keywords TODO FIXME and XXX
