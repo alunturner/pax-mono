@@ -52,15 +52,16 @@ local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 
 	-- base colours and variant
-	local bg = hsl(240, 0, 10)
-	local fg = hsl(50, 0, 90)
+	local dark = hsl(0, 0, 10)
+	local bright = hsl(0, 0, 90)
 
 	-- ramps from bg to fg
-	local ramp_1 = bg.mix(fg, 10)
-	local ramp_4 = bg.mix(fg, 60) -- 2 use, Comments, LineNr
-	local ramp_5 = bg.mix(fg, 70) -- 1 use, Statements
-	local ramp_6 = bg.mix(fg, 80) -- 2 uses, Type and Delimiter
-	local ramp_7 = bg.mix(fg, 90) -- 2 uses, PMenu only
+	local dark_plus = dark.mix(bright, 10)
+	local dark_plus_plus = dark.mix(bright, 20)
+	local mid = dark.mix(bright, 60)
+	local mid_plus = dark.mix(bright, 70)
+	local bright_minus_minus = dark.mix(bright, 80)
+	local bright_minus = dark.mix(bright, 90)
 
 	-- errors and warnings
 	local red = hsl(0, 70, 60)
@@ -69,8 +70,7 @@ local theme = lush(function(injected_functions)
 	local tmux = hsl(300, 60, 20)
 
 	-- utils
-	local blank = { fg = fg }
-	local hidden = { fg = bg, bg = bg }
+	local hidden = { fg = dark, bg = dark }
 
 	return {
 		-- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
@@ -83,54 +83,54 @@ local theme = lush(function(injected_functions)
 		--
 		-- See :h highlight-groups
 		--
-		Normal({ fg = fg, bg = bg }), -- Normal text
-		ColorColumn({ bg = ramp_1 }), -- Columns set with 'colorcolumn'
-		Conceal(hidden), -- Placeholder characterssubstituted for concealed text (see 'conceallevel')
+		Normal({ fg = bright, bg = dark }), -- Normal text
+		ColorColumn({ bg = dark_plus }), -- Columns set with 'colorcolumn'
+		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
 		Cursor({ Normal }), -- Character under the cursor
 		CurSearch({ Normal, gui = "reverse" }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		lCursor({ Cursor }), -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		CursorIM({ Cursor }), -- Like Cursor, but used when in IME mode |CursorIM|
-		CursorLine({ bg = ramp_1 }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+		CursorLine({ bg = dark_plus_plus }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 		CursorColumn({ CursorLine }), -- Screen-column at the cursor, when 'cursorcolumn' is set.
-		Directory({ fg = fg }), -- Directory names (and other special names in listings)
-		DiffAdd(blank), -- Diff mode: Added line |diff.txt|
-		DiffChange(blank), -- Diff mode: Changed line |diff.txt|
-		DiffDelete(blank), -- Diff mode: Deleted line |diff.txt|
-		DiffText(blank), -- Diff mode: Changed text within a changed line |diff.txt|
+		Directory({ fg = bright }), -- Directory names (and other special names in listings)
+		DiffAdd({}), -- Diff mode: Added line |diff.txt|
+		DiffChange({}), -- Diff mode: Changed line |diff.txt|
+		DiffDelete({}), -- Diff mode: Deleted line |diff.txt|
+		DiffText({}), -- Diff mode: Changed text within a changed line |diff.txt|
 		EndOfBuffer(hidden), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
-		TermCursor({ Normal }), -- Cursor in a focused terminal
-		TermCursorNC({ Normal, gui = "reverse" }), -- Cursor in an unfocused terminal
+		TermCursor({}), -- Cursor in a focused terminal
+		TermCursorNC({}), -- Cursor in an unfocused terminal
 		ErrorMsg({ fg = red }), -- Error messages on the command line
 		VertSplit({ Normal }), -- Column separating vertically split windows
-		Folded({ Normal }), -- Line used for closed folds
-		FoldColumn({ Normal }), -- 'foldcolumn'
-		SignColumn({ Normal }), -- Column where |signs| are displayed
+		Folded({}), -- Line used for closed folds
+		FoldColumn({}), -- 'foldcolumn'
+		SignColumn({}), -- Column where |signs| are displayed
 		IncSearch({ Normal, gui = "reverse" }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 		Substitute({ CurSearch }), -- |:substitute| replacement text highlighting
-		LineNr({ SignColumn, fg = ramp_4 }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-		LineNrAbove(blank), -- Line number for when the 'relativenumber' option is set, above the cursor line
-		LineNrBelow(blank), -- Line number for when the 'relativenumber' option is set, below the cursor line
-		CursorLineNr({ CursorLine, fg = fg }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-		CursorLineFold({ CursorLineNr }), -- Like FoldColumn when 'cursorline' is set for the cursor line
-		CursorLineSign({ CursorLineNr }), -- Like SignColumn when 'cursorline' is set for the cursor line
+		LineNr({ fg = mid }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+		LineNrAbove({}), -- Line number for when the 'relativenumber' option is set, above the cursor line
+		LineNrBelow({}), -- Line number for when the 'relativenumber' option is set, below the cursor line
+		CursorLineNr({ CursorLine, fg = bright }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+		CursorLineFold({ CursorLine }), -- Like FoldColumn when 'cursorline' is set for the cursor line
+		CursorLineSign({ CursorLine }), -- Like SignColumn when 'cursorline' is set for the cursor line
 		MatchParen({ Normal, gui = "reverse" }), -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
-		ModeMsg({ Normal, bg = ramp_1 }), -- 'showmode' message (e.g., "-- INSERT -- ")
+		ModeMsg({ Normal }), -- 'showmode' message (e.g., "-- INSERT -- ")
 		MsgArea({ ModeMsg }), -- Area for messages and cmdline
 		MsgSeparator({ ModeMsg }), -- Separator for scrolled messages, `msgsep` flag of 'display'
 		MoreMsg({ ModeMsg }), -- |more-prompt|
-		NonText({ Normal }), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
+		NonText({}), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
 		NormalFloat({ Normal }), -- Normal text in floating windows.
-		FloatBorder({ fg = fg }), -- Border of floating windows.
+		FloatBorder({ fg = bright }), -- Border of floating windows.
 		FloatTitle({ Normal }), -- Title of floating windows.
 		NormalNC({ Normal }), -- normal text in non-current windows
-		Pmenu({ fg = ramp_7, bg = ramp_1 }), -- Popup menu: Normal item.
+		Pmenu({ fg = bright_minus, bg = dark_plus }), -- Popup menu: Normal item.
 		PmenuSel({ Pmenu, gui = "reverse" }), -- Popup menu: Selected item.
 		PmenuKind({ Pmenu }), -- Popup menu: Normal item "kind"
 		PmenuKindSel({ PmenuSel }), -- Popup menu: Selected item "kind"
 		PmenuExtra({ Pmenu }), -- Popup menu: Normal item "extra text"
 		PmenuExtraSel({ PmenuSel }), -- Popup menu: Selected item "extra text"
-		PmenuSbar({ bg = ramp_1 }), -- Popup menu: Scrollbar.
-		PmenuThumb({ bg = ramp_7 }), -- Popup menu: Thumb of the scrollbar.
+		PmenuSbar({ bg = dark_plus }), -- Popup menu: Scrollbar.
+		PmenuThumb({ bg = bright_minus }), -- Popup menu: Thumb of the scrollbar.
 		Question({ ModeMsg }), -- |hit-enter| prompt and yes/no questions
 		QuickFixLine({ PmenuSel }), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
 		Search({ IncSearch }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
@@ -141,21 +141,21 @@ local theme = lush(function(injected_functions)
 		SpellRare({ Normal }), -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
 		StatusLine({ Normal }), -- Status line of current window
 		StatusLineNC(hidden), -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
-		TabLine({ Normal }), -- Tab pages line, not active tab page label
-		TabLineFill({ Normal }), -- Tab pages line, where there are no labels
-		TabLineSel({ Normal }), -- Tab pages line, active tab page label
+		TabLine({}), -- Tab pages line, not active tab page label
+		TabLineFill({}), -- Tab pages line, where there are no labels
+		TabLineSel({}), -- Tab pages line, active tab page label
 		Title({ Normal }), -- Titles for output from ":set all", ":autocmd" etc.
-		Visual({ Normal, gui = "reverse" }), -- Visual mode selection
+		Visual({ fg = dark_plus_plus, bg = bright_minus_minus }), -- Visual mode selection
 		VisualNOS({ Visual }), -- Visual mode selection when vim is "Not Owning the Selection".
 		WarningMsg({ fg = orange }), -- Warning messages
 		Whitespace({ Normal }), -- "nbsp", "space", "tab" and "trail" in 'listchars'
-		Winseparator({ Normal }), -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
+		Winseparator({}), -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
 		WildMenu({ PmenuSel }), -- Current match in 'wildmenu' completion
-		WinBar({ Normal }), -- Window bar of current window
-		WinBarNC({ LineNr }), -- Window bar of not-current windows
+		WinBar({}), -- Window bar of current window
+		WinBarNC({}), -- Window bar of not-current windows
 		-- CUSTOM RULER
-		CustomRulerSeparator({ ModeMsg, fg = tmux }),
-		CustomRulerIcon({ fg = fg, bg = tmux }),
+		CustomRulerSeparator({ ModeMsg }),
+		CustomRulerIcon({ ModeMsg, gui = "reverse" }),
 		CustomRulerFile({ ModeMsg }),
 		CustomRulerError({ ModeMsg, fg = red }),
 
@@ -167,19 +167,19 @@ local theme = lush(function(injected_functions)
 		--
 		-- Uncomment and edit if you want more specific syntax highlighting.
 
-		Comment({ fg = ramp_4, gui = "italic" }), -- Any comment
+		Comment({ fg = mid, gui = "italic" }), -- Any comment
 
-		Constant({ fg = fg }), -- (*) Any constant
+		Constant({ fg = bright }), -- (*) Any constant
 		-- String { }, --   A string constant: "this is a string"
 		-- Character { }, --   A character constant: 'c', '\n'
 		-- Number { }, --   A number constant: 234, 0xff
 		-- Boolean        { }, --   A boolean constant: TRUE, false
 		-- Float { }, --   A floating point constant: 2.3e10
 
-		Identifier({ fg = fg }), -- (*) Any variable name
+		Identifier({ fg = bright }), -- (*) Any variable name
 		Function({ Identifier }), --   Function name (also: methods for classes)
 
-		Statement({ fg = ramp_5, gui = "bold" }), -- (*) Any statement
+		Statement({ fg = mid_plus, gui = "bold" }), -- (*) Any statement
 		-- Conditional    { }, --   if, then, else, endif, switch, etc.
 		-- Repeat         { }, --   for, do, while, etc.
 		-- Label          { }, --   case, default, etc.
@@ -193,7 +193,7 @@ local theme = lush(function(injected_functions)
 		-- Macro          { }, --   Same as Define
 		-- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-		Type({ fg = ramp_6 }), -- (*) int, long, char, etc.
+		Type({ fg = bright_minus_minus }), -- (*) int, long, char, etc.
 		-- StorageClass   { }, --   static, register, volatile, etc.
 		-- Structure      { }, --   struct, union, enum, etc.
 		-- Typedef        { }, --   A typedef
@@ -201,7 +201,7 @@ local theme = lush(function(injected_functions)
 		Special({ Normal }), -- (*) Any special symbol
 		-- SpecialChar    { }, --   Special character in a constant
 		-- Tag            { }, --   You can use CTRL-] on this
-		Delimiter({ fg = ramp_6, gui = "bold" }), --   Character that needs attention
+		Delimiter({ fg = bright_minus_minus, gui = "bold" }), --   Character that needs attention
 		-- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
 		-- Debug          { }, --   Debugging statements
 
@@ -227,9 +227,9 @@ local theme = lush(function(injected_functions)
 		--
 		DiagnosticError({ fg = red }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticWarn({ fg = orange }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticInfo({ Comment }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticHint({ Comment }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticOk({ Comment }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticInfo({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticHint({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticOk({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		-- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
 		-- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
 		-- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
@@ -245,7 +245,7 @@ local theme = lush(function(injected_functions)
 		-- DiagnosticFloatingInfo     { } , -- Used to color "Info" diagnostic messages in diagnostics float.
 		-- DiagnosticFloatingHint     { } , -- Used to color "Hint" diagnostic messages in diagnostics float.
 		-- DiagnosticFloatingOk       { } , -- Used to color "Ok" diagnostic messages in diagnostics float.
-		-- DiagnosticSignError(), -- Used for "Error" signs in sign column.
+		DiagnosticSignError({ fg = green, bg = "unset" }), -- Used for "Error" signs in sign column.
 		-- DiagnosticSignWarn(), -- Used for "Warn" signs in sign column.
 		-- DiagnosticSignInfo(), -- Used for "Info" signs in sign column.
 		-- DiagnosticSignHint(), -- Used for "Hint" signs in sign column.
