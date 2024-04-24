@@ -27,7 +27,7 @@ run(
 	-- now we are ready to write our colors file. note: there is no reason this has
 	-- to be written to the relative "colors" dir, you could write the file to an
 	-- entirely different vim plugin.
-	{ overwrite, "colors/pax_mono.vim" }
+	{ overwrite, "vimscript/pax_mono.vim" }
 )
 
 -- and that is the whole build file
