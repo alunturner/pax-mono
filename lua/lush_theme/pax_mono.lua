@@ -62,7 +62,8 @@ local theme = lush(function(injected_functions)
 	local bright_minus_minus = dark.mix(bright, 80)
 	local bright_minus = dark.mix(bright, 90)
 
-	-- errors and warnings
+	-- errors and warnings TODO >>> make these scale with dark/light mode,
+	-- presumably just their luminosity changes value
 	local red = hsl(0, 70, 60)
 	local orange = hsl(34, 70, 60)
 	local green = hsl(120, 70, 60) -- #52E052, unused here but useful in lazygit
