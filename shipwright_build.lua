@@ -22,6 +22,7 @@ run(
 	--
 	-- append() accepts a table of values, or one value, so this call ends up being:
 	-- append(last_pipe_value, {"set...",  "let..."})
+	-- MANUALLY ADD `hi clear` at top of file
 	{ append, { "set background=dark", 'let g:colors_name="pax_mono"' } },
 
 	-- now we are ready to write our colors file. note: there is no reason this has
