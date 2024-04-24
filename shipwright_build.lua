@@ -5,7 +5,7 @@ local lushwright = require("shipwright.transform.lush")
 -- we start by calling run and giving it our colorscheme as the first argument.
 -- any other arguments form the pipeline.
 run(
-	require("code/pax-mono/lua/lush_theme/pax_mono"),
+	require("lua/lush_theme/pax_mono"),
 
 	-- now we will convert that colorscheme to a list of vimscript highlight commands
 	lushwright.to_vimscript,
