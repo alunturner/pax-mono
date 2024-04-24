@@ -51,9 +51,10 @@ local hsl = lush.hsl
 local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 
-	-- base colours and variant
+	-- base colours and cursor
 	local dark = hsl(0, 0, 10)
 	local bright = hsl(0, 0, 90)
+	local hibiscus = hsl(330, 100, 50)
 
 	-- ramps from bg to fg
 	local dark_plus = dark.mix(bright, 10)
@@ -85,7 +86,7 @@ local theme = lush(function(injected_functions)
 		Normal({ fg = bright, bg = dark }), -- Normal text
 		ColorColumn({ bg = dark_plus }), -- Columns set with 'colorcolumn'
 		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
-		Cursor({ Normal }), -- Character under the cursor
+		Cursor({ fg = bright, bg = hibiscus }), -- Character under the cursor
 		CurSearch({ Normal, gui = "reverse" }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		lCursor({ Cursor }), -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		CursorIM({ Cursor }), -- Like Cursor, but used when in IME mode |CursorIM|
@@ -97,7 +98,7 @@ local theme = lush(function(injected_functions)
 		DiffDelete({}), -- Diff mode: Deleted line |diff.txt|
 		DiffText({}), -- Diff mode: Changed text within a changed line |diff.txt|
 		EndOfBuffer(hidden), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
-		TermCursor({}), -- Cursor in a focused terminal
+		TermCursor({ bg = hibiscus }), -- Cursor in a focused terminal
 		TermCursorNC({}), -- Cursor in an unfocused terminal
 		ErrorMsg({ fg = red }), -- Error messages on the command line
 		VertSplit({ Normal }), -- Column separating vertically split windows
