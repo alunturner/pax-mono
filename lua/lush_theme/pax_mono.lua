@@ -84,9 +84,6 @@ local theme = lush(function(injected_functions)
 	-- base colours and cursor
 	local hibiscus = colors.hibiscus
 
-	-- ramps from bg to fg
-	local bright_minus = theme.fg_minus
-
 	-- utils
 	local hidden = { fg = theme.bg, bg = theme.bg }
 
@@ -141,14 +138,14 @@ local theme = lush(function(injected_functions)
 		FloatBorder({ fg = theme.fg }), -- Border of floating windows.
 		FloatTitle({ Normal }), -- Title of floating windows.
 		NormalNC({ Normal }), -- normal text in non-current windows
-		Pmenu({ fg = bright_minus, bg = theme.bg_plus }), -- Popup menu: Normal item.
+		Pmenu({ fg = theme.fg_minus, bg = theme.bg_plus }), -- Popup menu: Normal item.
 		PmenuSel({ Pmenu, gui = "reverse" }), -- Popup menu: Selected item.
 		PmenuKind({ Pmenu }), -- Popup menu: Normal item "kind"
 		PmenuKindSel({ PmenuSel }), -- Popup menu: Selected item "kind"
 		PmenuExtra({ Pmenu }), -- Popup menu: Normal item "extra text"
 		PmenuExtraSel({ PmenuSel }), -- Popup menu: Selected item "extra text"
 		PmenuSbar({ bg = theme.bg_plus }), -- Popup menu: Scrollbar.
-		PmenuThumb({ bg = bright_minus }), -- Popup menu: Thumb of the scrollbar.
+		PmenuThumb({ bg = theme.fg_minus }), -- Popup menu: Thumb of the scrollbar.
 		Question({ ModeMsg }), -- |hit-enter| prompt and yes/no questions
 		QuickFixLine({ PmenuSel }), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
 		Search({ IncSearch }), -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
@@ -211,7 +208,7 @@ local theme = lush(function(injected_functions)
 		-- Macro          { }, --   Same as Define
 		-- PreCondit      { }, --   Preprocessor #if, #else, #endif, etc.
 
-		Type({ fg = bright_minus }), -- (*) int, long, char, etc.
+		Type({ fg = theme.fg_minus }), -- (*) int, long, char, etc.
 		-- StorageClass   { }, --   static, register, volatile, etc.
 		-- Structure      { }, --   struct, union, enum, etc.
 		-- Typedef        { }, --   A typedef
