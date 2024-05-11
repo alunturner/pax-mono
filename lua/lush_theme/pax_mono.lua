@@ -88,8 +88,6 @@ local theme = lush(function(injected_functions)
 	local hibiscus = colors.hibiscus
 
 	-- ramps from bg to fg
-	local dark_plus = theme.bg_plus
-	local dark_plus_plus = theme.bg_plus_plus
 	local mid = theme.mg
 	local bright_minus_minus = theme.fg_minus_minus
 	local bright_minus = theme.fg_minus
@@ -109,13 +107,13 @@ local theme = lush(function(injected_functions)
 		-- See :h highlight-groups
 		--
 		Normal({ fg = bright, bg = theme.bg }), -- Normal text
-		ColorColumn({ bg = dark_plus }), -- Columns set with 'colorcolumn'
+		ColorColumn({ bg = theme.bg_plus }), -- Columns set with 'colorcolumn'
 		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
 		Cursor({ fg = bright, bg = hibiscus }), -- Character under the cursor
 		CurSearch({ Normal, gui = "reverse" }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		lCursor({ Cursor }), -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		CursorIM({ Cursor }), -- Like Cursor, but used when in IME mode |CursorIM|
-		CursorLine({ bg = dark_plus_plus }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
+		CursorLine({ bg = theme.bg_plus_plus }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 		CursorColumn({ CursorLine }), -- Screen-column at the cursor, when 'cursorcolumn' is set.
 		Directory({ fg = bright }), -- Directory names (and other special names in listings)
 		DiffAdd({}), -- Diff mode: Added line |diff.txt|
@@ -148,13 +146,13 @@ local theme = lush(function(injected_functions)
 		FloatBorder({ fg = bright }), -- Border of floating windows.
 		FloatTitle({ Normal }), -- Title of floating windows.
 		NormalNC({ Normal }), -- normal text in non-current windows
-		Pmenu({ fg = bright_minus, bg = dark_plus }), -- Popup menu: Normal item.
+		Pmenu({ fg = bright_minus, bg = theme.bg_plus }), -- Popup menu: Normal item.
 		PmenuSel({ Pmenu, gui = "reverse" }), -- Popup menu: Selected item.
 		PmenuKind({ Pmenu }), -- Popup menu: Normal item "kind"
 		PmenuKindSel({ PmenuSel }), -- Popup menu: Selected item "kind"
 		PmenuExtra({ Pmenu }), -- Popup menu: Normal item "extra text"
 		PmenuExtraSel({ PmenuSel }), -- Popup menu: Selected item "extra text"
-		PmenuSbar({ bg = dark_plus }), -- Popup menu: Scrollbar.
+		PmenuSbar({ bg = theme.bg_plus }), -- Popup menu: Scrollbar.
 		PmenuThumb({ bg = bright_minus }), -- Popup menu: Thumb of the scrollbar.
 		Question({ ModeMsg }), -- |hit-enter| prompt and yes/no questions
 		QuickFixLine({ PmenuSel }), -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
@@ -170,7 +168,7 @@ local theme = lush(function(injected_functions)
 		TabLineFill({}), -- Tab pages line, where there are no labels
 		TabLineSel({}), -- Tab pages line, active tab page label
 		Title({ Normal }), -- Titles for output from ":set all", ":autocmd" etc.
-		Visual({ fg = dark_plus_plus, bg = bright_minus_minus }), -- Visual mode selection
+		Visual({ fg = theme.bg_plus_plus, bg = bright_minus_minus }), -- Visual mode selection
 		VisualNOS({ Visual }), -- Visual mode selection when vim is "Not Owning the Selection".
 		WarningMsg({ fg = theme.warning }), -- Warning messages
 		Whitespace({ Normal }), -- "nbsp", "space", "tab" and "trail" in 'listchars'
