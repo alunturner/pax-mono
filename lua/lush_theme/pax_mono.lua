@@ -53,8 +53,6 @@ local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 	local colors = {
 		-- Colors
-		midnight = "#14141f",
-		cream = "#e9e7dd",
 		hibiscus = "#ff007b",
 		red = "#e61919",
 		orange = "#e68019",
