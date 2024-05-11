@@ -44,6 +44,24 @@
 
 local lush = require("lush")
 local hsl = lush.hsl
+-- nb this will move into the pax file when it is in lua
+local colors = {
+	-- Colors
+	midnight = "#19191f",
+	cream = "#e9e7dd",
+	hibiscus = "#ff007b",
+	red = "#e61919",
+	orange = "#e68019",
+	green = "#14b814",
+
+	-- Shade ramp
+	grey20 = "#333333",
+	grey30 = "#4d4d4d",
+	grey60 = "#999999",
+	grey70 = "#b3b3b3",
+	grey80 = "#cccccc",
+	grey90 = "#e6e6e6",
+}
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
