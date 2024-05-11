@@ -84,7 +84,6 @@ local theme = lush(function(injected_functions)
 	}
 
 	-- base colours and cursor
-	local dark = hsl(0, 0, 10)
 	local bright = theme.fg
 	local hibiscus = colors.hibiscus
 
@@ -95,14 +94,8 @@ local theme = lush(function(injected_functions)
 	local bright_minus_minus = theme.fg_minus_minus
 	local bright_minus = theme.fg_minus
 
-	-- errors and warnings TODO >>> make these scale with dark/light mode,
-	-- presumably just their luminosity changes value
-	local red = theme.error
-	local orange = theme.warning
-	local green = theme.success
-
 	-- utils
-	local hidden = { fg = dark, bg = dark }
+	local hidden = { fg = theme.bg, bg = theme.bg }
 
 	return {
 		-- The following are the Neovim (as of 0.8.0-dev+100-g371dfb174) highlight
@@ -132,7 +125,7 @@ local theme = lush(function(injected_functions)
 		EndOfBuffer(hidden), -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
 		TermCursor({ bg = hibiscus }), -- Cursor in a focused terminal
 		TermCursorNC({}), -- Cursor in an unfocused terminal
-		ErrorMsg({ fg = red }), -- Error messages on the command line
+		ErrorMsg({ fg = theme.error }), -- Error messages on the command line
 		VertSplit({ Normal }), -- Column separating vertically split windows
 		Folded({}), -- Line used for closed folds
 		FoldColumn({}), -- 'foldcolumn'
@@ -179,7 +172,7 @@ local theme = lush(function(injected_functions)
 		Title({ Normal }), -- Titles for output from ":set all", ":autocmd" etc.
 		Visual({ fg = dark_plus_plus, bg = bright_minus_minus }), -- Visual mode selection
 		VisualNOS({ Visual }), -- Visual mode selection when vim is "Not Owning the Selection".
-		WarningMsg({ fg = orange }), -- Warning messages
+		WarningMsg({ fg = theme.warning }), -- Warning messages
 		Whitespace({ Normal }), -- "nbsp", "space", "tab" and "trail" in 'listchars'
 		Winseparator({}), -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
 		WildMenu({ PmenuSel }), -- Current match in 'wildmenu' completion
@@ -189,7 +182,7 @@ local theme = lush(function(injected_functions)
 		CustomRulerSeparator({ ModeMsg }),
 		CustomRulerIcon({ ModeMsg, gui = "reverse" }),
 		CustomRulerFile({ ModeMsg }),
-		CustomRulerError({ ModeMsg, fg = red }),
+		CustomRulerError({ ModeMsg, fg = theme.error }),
 
 		-- Common vim syntax groups used for all kinds of code and markup.
 		-- Commented-out groups should chain up to their preferred (*) group
@@ -257,8 +250,8 @@ local theme = lush(function(injected_functions)
 
 		-- See :h diagnostic-highlights, some groups may not be listed, submit a PR fix to lush-template!
 		--
-		DiagnosticError({ fg = red }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticWarn({ fg = orange }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticError({ fg = theme.error }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticWarn({ fg = theme.warning }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticInfo({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticHint({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticOk({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
