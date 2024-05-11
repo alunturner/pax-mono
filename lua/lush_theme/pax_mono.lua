@@ -43,8 +43,6 @@
 --  `:lua require('lush').ify()`
 
 local lush = require("lush")
-local hsl = lush.hsl
--- nb this will move into the pax file when it is in lua
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
@@ -84,11 +82,9 @@ local theme = lush(function(injected_functions)
 	}
 
 	-- base colours and cursor
-	local bright = theme.fg
 	local hibiscus = colors.hibiscus
 
 	-- ramps from bg to fg
-	local bright_minus_minus = theme.fg_minus_minus
 	local bright_minus = theme.fg_minus
 
 	-- utils
@@ -105,16 +101,16 @@ local theme = lush(function(injected_functions)
 		--
 		-- See :h highlight-groups
 		--
-		Normal({ fg = bright, bg = theme.bg }), -- Normal text
+		Normal({ fg = theme.fg, bg = theme.bg }), -- Normal text
 		ColorColumn({ bg = theme.bg_plus }), -- Columns set with 'colorcolumn'
 		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
-		Cursor({ fg = bright, bg = hibiscus }), -- Character under the cursor
+		Cursor({ fg = theme.fg, bg = hibiscus }), -- Character under the cursor
 		CurSearch({ Normal, gui = "reverse" }), -- Highlighting a search pattern under the cursor (see 'hlsearch')
 		lCursor({ Cursor }), -- Character under the cursor when |language-mapping| is used (see 'guicursor')
 		CursorIM({ Cursor }), -- Like Cursor, but used when in IME mode |CursorIM|
 		CursorLine({ bg = theme.bg_plus_plus }), -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
 		CursorColumn({ CursorLine }), -- Screen-column at the cursor, when 'cursorcolumn' is set.
-		Directory({ fg = bright }), -- Directory names (and other special names in listings)
+		Directory({ fg = theme.fg }), -- Directory names (and other special names in listings)
 		DiffAdd({}), -- Diff mode: Added line |diff.txt|
 		DiffChange({}), -- Diff mode: Changed line |diff.txt|
 		DiffDelete({}), -- Diff mode: Deleted line |diff.txt|
@@ -132,7 +128,7 @@ local theme = lush(function(injected_functions)
 		LineNr({ fg = theme.mg }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 		LineNrAbove({ LineNr }), -- Line number for when the 'relativenumber' option is set, above the cursor line
 		LineNrBelow({ LineNr }), -- Line number for when the 'relativenumber' option is set, below the cursor line
-		CursorLineNr({ CursorLine, fg = bright }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
+		CursorLineNr({ CursorLine, fg = theme.fg }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 		CursorLineFold({ CursorLine }), -- Like FoldColumn when 'cursorline' is set for the cursor line
 		CursorLineSign({ CursorLine }), -- Like SignColumn when 'cursorline' is set for the cursor line
 		MatchParen({ Normal, gui = "reverse" }), -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
@@ -142,7 +138,7 @@ local theme = lush(function(injected_functions)
 		MoreMsg({ ModeMsg }), -- |more-prompt|
 		NonText({}), -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
 		NormalFloat({ Normal }), -- Normal text in floating windows.
-		FloatBorder({ fg = bright }), -- Border of floating windows.
+		FloatBorder({ fg = theme.fg }), -- Border of floating windows.
 		FloatTitle({ Normal }), -- Title of floating windows.
 		NormalNC({ Normal }), -- normal text in non-current windows
 		Pmenu({ fg = bright_minus, bg = theme.bg_plus }), -- Popup menu: Normal item.
@@ -167,7 +163,7 @@ local theme = lush(function(injected_functions)
 		TabLineFill({}), -- Tab pages line, where there are no labels
 		TabLineSel({}), -- Tab pages line, active tab page label
 		Title({ Normal }), -- Titles for output from ":set all", ":autocmd" etc.
-		Visual({ fg = theme.bg_plus_plus, bg = bright_minus_minus }), -- Visual mode selection
+		Visual({ fg = theme.bg_plus_plus, bg = theme.fg_minus_minus }), -- Visual mode selection
 		VisualNOS({ Visual }), -- Visual mode selection when vim is "Not Owning the Selection".
 		WarningMsg({ fg = theme.warning }), -- Warning messages
 		Whitespace({ Normal }), -- "nbsp", "space", "tab" and "trail" in 'listchars'
@@ -191,17 +187,17 @@ local theme = lush(function(injected_functions)
 
 		Comment({ fg = theme.mg, gui = "italic" }), -- Any comment
 
-		Constant({ fg = bright }), -- (*) Any constant
+		Constant({ fg = theme.fg }), -- (*) Any constant
 		-- String { }, --   A string constant: "this is a string"
 		-- Character { }, --   A character constant: 'c', '\n'
 		-- Number { }, --   A number constant: 234, 0xff
 		-- Boolean        { }, --   A boolean constant: TRUE, false
 		-- Float { }, --   A floating point constant: 2.3e10
 
-		Identifier({ fg = bright }), -- (*) Any variable name
-		Function({ fg = bright_minus_minus }), --   Function name (also: methods for classes)
+		Identifier({ fg = theme.fg }), -- (*) Any variable name
+		Function({ fg = theme.fg_minus_minus }), --   Function name (also: methods for classes)
 
-		Statement({ fg = bright, gui = "bold" }), -- (*) Any statement
+		Statement({ fg = theme.fg, gui = "bold" }), -- (*) Any statement
 		-- Conditional    { }, --   if, then, else, endif, switch, etc.
 		-- Repeat         { }, --   for, do, while, etc.
 		-- Label          { }, --   case, default, etc.
@@ -209,7 +205,7 @@ local theme = lush(function(injected_functions)
 		-- Keyword        { }, --   any other keyword
 		-- Exception      { }, --   try, catch, throw
 
-		PreProc({ fg = bright, gui = "bold" }), -- (*) Generic Preprocessor
+		PreProc({ fg = theme.fg, gui = "bold" }), -- (*) Generic Preprocessor
 		-- Include        { }, --   Preprocessor #include
 		-- Define         { }, --   Preprocessor #define
 		-- Macro          { }, --   Same as Define
@@ -220,10 +216,10 @@ local theme = lush(function(injected_functions)
 		-- Structure      { }, --   struct, union, enum, etc.
 		-- Typedef        { }, --   A typedef
 
-		Special({ fg = bright }), -- (*) Any special symbol
+		Special({ fg = theme.fg }), -- (*) Any special symbol
 		-- SpecialChar    { }, --   Special character in a constant
 		-- Tag            { }, --   You can use CTRL-] on this
-		Delimiter({ fg = bright }), --   Character that needs attention
+		Delimiter({ fg = theme.fg }), --   Character that needs attention
 		-- SpecialComment { }, --   Special things inside a comment (e.g. '\n')
 		-- Debug          { }, --   Debugging statements
 
