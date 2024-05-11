@@ -53,7 +53,7 @@ local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
 	local colors = {
 		-- Colors
-		midnight = "#19191f",
+		midnight = "#14141f",
 		cream = "#e9e7dd",
 		hibiscus = "#ff007b",
 		red = "#e61919",
@@ -61,6 +61,7 @@ local theme = lush(function(injected_functions)
 		green = "#14b814",
 
 		-- Shade ramp
+		grey10 = "#1a1a1a",
 		grey20 = "#333333",
 		grey30 = "#4d4d4d",
 		grey60 = "#999999",
@@ -70,7 +71,7 @@ local theme = lush(function(injected_functions)
 	}
 
 	local theme = {
-		bg = colors.midnight,
+		bg = colors.grey10,
 		bg_plus = colors.grey20,
 		bg_plus_plus = colors.grey30,
 		mg = colors.grey60,
@@ -116,7 +117,7 @@ local theme = lush(function(injected_functions)
 		--
 		-- See :h highlight-groups
 		--
-		Normal({ fg = bright, bg = dark }), -- Normal text
+		Normal({ fg = bright, bg = theme.bg }), -- Normal text
 		ColorColumn({ bg = dark_plus }), -- Columns set with 'colorcolumn'
 		Conceal(hidden), -- Placeholder characters substituted for concealed text (see 'conceallevel')
 		Cursor({ fg = bright, bg = hibiscus }), -- Character under the cursor
@@ -141,8 +142,8 @@ local theme = lush(function(injected_functions)
 		IncSearch({ Normal, gui = "reverse" }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 		Substitute({ CurSearch }), -- |:substitute| replacement text highlighting
 		LineNr({ fg = mid }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
-		LineNrAbove({}), -- Line number for when the 'relativenumber' option is set, above the cursor line
-		LineNrBelow({}), -- Line number for when the 'relativenumber' option is set, below the cursor line
+		LineNrAbove({ LineNr }), -- Line number for when the 'relativenumber' option is set, above the cursor line
+		LineNrBelow({ LineNr }), -- Line number for when the 'relativenumber' option is set, below the cursor line
 		CursorLineNr({ CursorLine, fg = bright }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
 		CursorLineFold({ CursorLine }), -- Like FoldColumn when 'cursorline' is set for the cursor line
 		CursorLineSign({ CursorLine }), -- Like SignColumn when 'cursorline' is set for the cursor line
