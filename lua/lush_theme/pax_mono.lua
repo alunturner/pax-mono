@@ -45,47 +45,62 @@
 local lush = require("lush")
 local hsl = lush.hsl
 -- nb this will move into the pax file when it is in lua
-local colors = {
-	-- Colors
-	midnight = "#19191f",
-	cream = "#e9e7dd",
-	hibiscus = "#ff007b",
-	red = "#e61919",
-	orange = "#e68019",
-	green = "#14b814",
-
-	-- Shade ramp
-	grey20 = "#333333",
-	grey30 = "#4d4d4d",
-	grey60 = "#999999",
-	grey70 = "#b3b3b3",
-	grey80 = "#cccccc",
-	grey90 = "#e6e6e6",
-}
 
 -- LSP/Linters mistakenly show `undefined global` errors in the spec, they may
 -- support an annotation like the following. Consult your server documentation.
 ---@diagnostic disable: undefined-global
 local theme = lush(function(injected_functions)
 	local sym = injected_functions.sym
+	local colors = {
+		-- Colors
+		midnight = "#19191f",
+		cream = "#e9e7dd",
+		hibiscus = "#ff007b",
+		red = "#e61919",
+		orange = "#e68019",
+		green = "#14b814",
+
+		-- Shade ramp
+		grey20 = "#333333",
+		grey30 = "#4d4d4d",
+		grey60 = "#999999",
+		grey70 = "#b3b3b3",
+		grey80 = "#cccccc",
+		grey90 = "#e6e6e6",
+	}
+
+	local theme = {
+		bg = colors.midnight,
+		bg_plus = colors.grey20,
+		bg_plus_plus = colors.grey30,
+		mg = colors.grey60,
+		fg_minus_minus = colors.grey70,
+		fg_minus = colors.grey80,
+		fg = colors.grey90,
+		cursor_bg = colors.hibiscus,
+		error = colors.red,
+		warning = colors.orange,
+		success = colors.green,
+		higlights = {},
+	}
 
 	-- base colours and cursor
 	local dark = hsl(0, 0, 10)
-	local bright = hsl(0, 0, 90)
-	local hibiscus = hsl(330, 100, 50)
+	local bright = theme.fg
+	local hibiscus = colors.hibiscus
 
 	-- ramps from bg to fg
-	local dark_plus = dark.mix(bright, 10)
-	local dark_plus_plus = dark.mix(bright, 20)
-	local mid = dark.mix(bright, 60)
-	local bright_minus_minus = dark.mix(bright, 80)
-	local bright_minus = dark.mix(bright, 90)
+	local dark_plus = theme.bg_plus
+	local dark_plus_plus = theme.bg_plus_plus
+	local mid = theme.mg
+	local bright_minus_minus = theme.fg_minus_minus
+	local bright_minus = theme.fg_minus
 
 	-- errors and warnings TODO >>> make these scale with dark/light mode,
 	-- presumably just their luminosity changes value
-	local red = hsl(0, 70, 60)
-	local orange = hsl(34, 70, 60)
-	local green = hsl(120, 70, 60) -- #52E052, unused here but useful in lazygit
+	local red = theme.error
+	local orange = theme.warning
+	local green = theme.success
 
 	-- utils
 	local hidden = { fg = dark, bg = dark }
