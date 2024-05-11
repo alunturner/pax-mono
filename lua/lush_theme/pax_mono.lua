@@ -88,7 +88,6 @@ local theme = lush(function(injected_functions)
 	local hibiscus = colors.hibiscus
 
 	-- ramps from bg to fg
-	local mid = theme.mg
 	local bright_minus_minus = theme.fg_minus_minus
 	local bright_minus = theme.fg_minus
 
@@ -130,7 +129,7 @@ local theme = lush(function(injected_functions)
 		SignColumn({}), -- Column where |signs| are displayed
 		IncSearch({ Normal, gui = "reverse" }), -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
 		Substitute({ CurSearch }), -- |:substitute| replacement text highlighting
-		LineNr({ fg = mid }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+		LineNr({ fg = theme.mg }), -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
 		LineNrAbove({ LineNr }), -- Line number for when the 'relativenumber' option is set, above the cursor line
 		LineNrBelow({ LineNr }), -- Line number for when the 'relativenumber' option is set, below the cursor line
 		CursorLineNr({ CursorLine, fg = bright }), -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
@@ -190,7 +189,7 @@ local theme = lush(function(injected_functions)
 		--
 		-- Uncomment and edit if you want more specific syntax highlighting.
 
-		Comment({ fg = mid, gui = "italic" }), -- Any comment
+		Comment({ fg = theme.mg, gui = "italic" }), -- Any comment
 
 		Constant({ fg = bright }), -- (*) Any constant
 		-- String { }, --   A string constant: "this is a string"
@@ -250,9 +249,9 @@ local theme = lush(function(injected_functions)
 		--
 		DiagnosticError({ fg = theme.error }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		DiagnosticWarn({ fg = theme.warning }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticInfo({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticHint({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
-		DiagnosticOk({ fg = mid }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticInfo({ fg = theme.mg }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticHint({ fg = theme.mg }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
+		DiagnosticOk({ fg = theme.mg }), -- Used as the base highlight group. Other Diagnostic highlights link to this by default (except Underline)
 		-- DiagnosticVirtualTextError { } , -- Used for "Error" diagnostic virtual text.
 		-- DiagnosticVirtualTextWarn  { } , -- Used for "Warn" diagnostic virtual text.
 		-- DiagnosticVirtualTextInfo  { } , -- Used for "Info" diagnostic virtual text.
