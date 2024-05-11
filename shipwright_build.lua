@@ -23,12 +23,23 @@ run(
 	-- append() accepts a table of values, or one value, so this call ends up being:
 	-- append(last_pipe_value, {"set...",  "let..."})
 	-- MANUALLY ADD `hi clear` at top of file
-	{ append, { "set background=dark", 'let g:colors_name="pax_mono"' } },
+	{ append, { "set background=dark", 'let g:colors_name="pax_zero"' } },
 
 	-- now we are ready to write our colors file. note: there is no reason this has
 	-- to be written to the relative "colors" dir, you could write the file to an
 	-- entirely different vim plugin.
-	{ overwrite, "vimscript/pax_mono.vim" }
+	{ overwrite, "build/pax_zero.vim" }
 )
 
 -- and that is the whole build file
+-- shipwright_build.lua
+
+run(
+	require("lua/lush_theme/pax_mono"),
+	-- generate lua code
+	lushwright.to_lua,
+	-- write the lua code into our destination.
+	-- you must specify open and close markers yourself to account
+	-- for differing comment styles, patchwrite isn't limited to lua files.
+	{ patchwrite, "build/pax_zero.lua", "-- PATCH_OPEN", "-- PATCH_CLOSE" }
+)
